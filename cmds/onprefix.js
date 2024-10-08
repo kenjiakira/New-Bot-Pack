@@ -6,7 +6,7 @@ module.exports = {
     usedby: 0,
     dmUser: false,
     dev: "Jonell Magallanes",
-    info: "Toggle onPrefix state of any command",
+    info: "Chuyển trạng thái onPrefix của bất kỳ lệnh nào",
     cooldowns: 5,
     onPrefix: true,
 
@@ -19,7 +19,7 @@ module.exports = {
             const filePath = path.join(__dirname, `${commandName}.js`);
 
             if (fs.existsSync(filePath)) {
-                const confirmationMessage = `⚠️ 𝗖𝗼𝗻𝗳𝗶𝗿𝗺 𝗖𝗵𝗮𝗻𝗴𝗶𝗻𝗴 𝗼𝗻𝗣𝗿𝗲𝗳𝗶𝘅\nDo you want to change the "onPrefix" state of "${commandName}" to ${newState}? React (👍) to confirm or (👎) to cancel.`;
+                const confirmationMessage = `⚠️ 𝗖𝗼𝗻𝗳𝗶𝗿𝗺 𝗖𝗵𝗮𝗻𝗴𝗶𝗻𝗴 𝗼𝗻𝗣𝗿𝗲𝗳𝗶𝘅\nBạn có muốn thay đổi trạng thái "onPrefix" của "${commandName}" thành ${newState}? Phản ứng (👍) để xác nhận hoặc (👎) để hủy bỏ.`;
                 const sentMessage = await api.sendMessage(confirmationMessage, threadID);
 
                 global.client.callReact.push({
@@ -30,10 +30,10 @@ module.exports = {
                     action: 'toggleOnPrefix'
                 });
             } else {
-                await api.sendMessage(`❌ Command "${commandName}" does not exist.`, threadID);
+                await api.sendMessage(`❌ Lệnh "${commandName}" không tồn tại.`, threadID);
             }
         } else {
-            await api.sendMessage("Usage: -onPrefix [true|false] [command name]", threadID);
+            await api.sendMessage("Cách sử dụng: -onPrefix [true|false] [tên lệnh]", threadID);
         }
     },
 
@@ -57,15 +57,15 @@ module.exports = {
                     fs.writeFileSync(filePath, commandFileContent);
                     global.cc.reload[commandName];
 
-                    const bold = global.fonts.bold("✅ Successfull onPrefix Chnaged");
+                    const bold = global.fonts.bold("✅ Thay đổi onPrefix thành công");
 
-                    await api.sendMessage(`${bold}\n${global.line}\nSuccessfully changed the "onPrefix" state of "${commandName}" to ${newState}.`, threadID);
+                    await api.sendMessage(`${bold}\n${global.line}\nĐã thay đổi trạng thái "onPrefix" của "${commandName}" thành ${newState} thành công.`, threadID);
                 } else {
-                    await api.sendMessage(`❌ Command "${commandName}" does not exist.`, threadID);
+                    await api.sendMessage(`❌ Lệnh "${commandName}" không tồn tại.`, threadID);
                 }
             }
         } else if (reaction === '👎') {
-            await api.sendMessage(`❌ Action to change "onPrefix" state for "${commandName}" has been canceled.`, threadID);
+            await api.sendMessage(`❌ Hành động thay đổi trạng thái "onPrefix" cho "${commandName}" đã bị hủy.`, threadID);
         }
     }
 };

@@ -9,6 +9,6 @@ module.exports = {
 
 onLaunch: async function ({ api, event, actions }) {
   const tid = event.threadID;
-  actions.reply(`Group Chat ID or ThreadID: ${tid}`);;
+  actions.reply(`ID group là : ${tid}`);;
 }
 }

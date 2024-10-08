@@ -64,7 +64,7 @@ const handleListenEvents = (api, commands, eventCommands, threadsDB, usersDB) =>
         const isGroup = threadID !== senderID;
 
         if (bannedThreads[threadID]) {
-            return api.sendMessage(`𝗧𝗵𝗿𝗲𝗮𝗱 𝗕𝗮𝗻𝗻𝗲𝗱\n━━━━━━━━━━━━━━━━━━\nThis thread has been banned for some violation. Reason: ${bannedThreads[threadID].reason}.`, threadID, () => {
+            return api.sendMessage(`𝗧𝗵𝗿𝗲𝗮𝗱 𝗕𝗮𝗻𝗻𝗲𝗱\n━━━━━━━━━━━━━━━━━━\nChủ đề này đã bị cấm vì một số vi phạm. Lý do: ${bannedThreads[threadID].reason}.`, threadID, () => {
                 api.removeUserFromGroup(api.getCurrentUserID(), threadID);
             });
         }
@@ -97,25 +97,25 @@ const handleListenEvents = (api, commands, eventCommands, threadsDB, usersDB) =>
             if (!usersDB[senderID]) {
                 usersDB[senderID] = { lastMessage: Date.now() };
                 fs.writeFileSync("./database/users.json", JSON.stringify(usersDB, null, 2));
-                console.error(gradient.summer(`[ DATABASE ] NEW DETECT USER IN SENDER ID: ${senderID}`));
+                console.error(gradient.summer(`[ DATABASE ] PHÁT HIỆN NGƯỜI DÙNG MỚI TRONG ID NGƯỜI GỬI: ${senderID}`));
             }
 
             if (!threadsDB[threadID]) {
                 threadsDB[threadID] = { lastMessage: Date.now() };
                 fs.writeFileSync("./database/threads.json", JSON.stringify(threadsDB, null, 2));
                 if (isGroup) {
-                    console.error(gradient.summer(`[ DATABASE ] NEW DETECTED THREAD ID: ${threadID}`));
+                    console.error(gradient.summer(`[ DATABASE ] ID CHUỖI MỚI ĐƯỢC PHÁT HIỆN: ${threadID}`));
                 }
             }
 
             if (isPrefixed && commandName === '') {
-                const notFoundMessage = `The command is not found. Please type ${adminConfig.prefix}help to see all commands.`;
+                const notFoundMessage = `Không tìm thấy lệnh. Vui lòng nhập ${adminConfig.prefix}help để xem tất cả các lệnh.`;
                 return api.sendMessage(notFoundMessage, threadID);
             }
 
             const allCommands = Object.keys(commands).concat(Object.values(commands).flatMap(cmd => cmd.aliases || []));
             if (isPrefixed && commandName !== '' && !allCommands.includes(commandName)) {
-                const notFoundMessage = `The command "${commandName}" is not found. Please type ${adminConfig.prefix}help to see all available commands.`;
+                const notFoundMessage = `Lệnh"${commandName}" Không tìm thấy. vui lòng nhập ${adminConfig.prefix}help để xem tất cả các lệnh.`;
                 return api.sendMessage(notFoundMessage, threadID, (err, info) => {
                     if (!err) {
                         setTimeout(() => api.unsendMessage(info.messageID), 20000);
@@ -127,20 +127,20 @@ const handleListenEvents = (api, commands, eventCommands, threadsDB, usersDB) =>
 
             if (command) {
                 if (command.dmUser === false && !isGroup && !adminConfig.adminUIDs.includes(senderID) && !(adminConfig.moderatorUIDs && adminConfig.moderatorUIDs.includes(senderID))) {
-                    return api.sendMessage(`This command cannot be used in DMs.`, threadID);
+                    return api.sendMessage(`Lệnh này không thể được sử dụng trong DMs.`, threadID);
                 }
 
                 if (command.onPrefix && !isPrefixed) {
-                    api.sendMessage(`This command requires a prefix: ${adminConfig.prefix}${command.name}`, event.threadID);
+                    api.sendMessage(`Lệnh này yêu cầu Prefix: ${adminConfig.prefix}${command.name}`, event.threadID);
                     return;
                 } else if (!command.onPrefix && isPrefixed) {
-                    api.sendMessage(`This command does not require a prefix: ${command.name}`, event.threadID);
+                    api.sendMessage(`Lệnh này không yêu cầu prefix: ${command.name}`, event.threadID);
                     return;
                 }
 
                 if (bannedUsers[senderID]) {
                     const userName = await getUserName(api, senderID);
-                    return api.sendMessage(`𝗨𝘀𝗲𝗿 𝗕𝗮𝗻𝗻𝗲𝗱 𝗦𝘆𝘀𝘁𝗲𝗺\n━━━━━━━━━━━━━━━━━━\nYou're banned from the system, ${userName}. Reason: ${bannedUsers[senderID].reason}.`, threadID);
+                    return api.sendMessage(`𝗨𝘀𝗲𝗿 𝗕𝗮𝗻𝗻𝗲𝗱 𝗦𝘆𝘀𝘁𝗲𝗺\n━━━━━━━━━━━━━━━━━━\nBạn bị cấm khỏi hệ thống, ${userName}. Lý do: ${bannedUsers[senderID].reason}.`, threadID);
                 }
 
                 if (!cooldowns[commandName]) cooldowns[commandName] = {};
@@ -153,7 +153,7 @@ const handleListenEvents = (api, commands, eventCommands, threadsDB, usersDB) =>
 
                     if (now < expirationTime) {
                         const timeLeft = ((expirationTime - now) / 1000).toFixed(1);
-                        api.sendMessage(`Please wait ${timeLeft} more second(s) before reusing the \`${command.name}\` command.`, event.threadID);
+                        api.sendMessage(`Vui lòng chờ thêm ${timeLeft} giây trước khi sử dụng lại \`${command.name}\` lệnh.`, event.threadID);
                         return;
                     }
                 }
@@ -170,8 +170,8 @@ const handleListenEvents = (api, commands, eventCommands, threadsDB, usersDB) =>
                               try {
                                   await targetFunc({ api, event, target: event.body, actions: cmdActions });
                               } catch (error) {
-                                  console.error(`Error executing ${commandName}:`, error);
-                                  api.sendMessage(`Error: Command noPrefix ${commandName} has been executed but encountered an error: ${error}`, event.threadID);
+                                  console.error(`Lỗi thực thi ${commandName}:`, error);
+                                  api.sendMessage(`Lỗi: Lệnh noPrefix ${commandName} đã được thực thi nhưng gặp lỗi: ${error}`, event.threadID);
                               }
                           }
                 })
@@ -194,7 +194,7 @@ const handleListenEvents = (api, commands, eventCommands, threadsDB, usersDB) =>
                   try {
                       await eventCommand.onEvents({ api, event, actions: {} });
                   } catch (error) {
-                      console.error(gradient.passion(`Error executing event command: ${error}`));
+                      console.error(gradient.passion(`Lỗi khi thực hiện lệnh sự kiện: ${error}`));
                   }
     }
 

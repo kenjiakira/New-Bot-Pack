@@ -22,7 +22,6 @@ if (fs.existsSync(saveWarningsCount)) {
   warningsCount = warningsCountData;
 }
 
-
 const loadBannedWords = threadID => {
   const wordFile = `./cmds/database/${threadID}.json`;
   if (fs.existsSync(wordFile)) {
@@ -36,10 +35,10 @@ const loadBannedWords = threadID => {
 async function getUserName(api, senderID) {
   try {
     const userInfo = await api.getUserInfo(senderID);
-    return userInfo[senderID]?.name || "User";
+    return userInfo[senderID]?.name || "Người dùng";
   } catch (error) {
     console.log(error);
-    return "User";
+    return "Người dùng";
   }
 };
 
@@ -70,10 +69,10 @@ module.exports = {
         fs.writeFileSync(saveWarningsCount, JSON.stringify(warningsCount), "utf8");
 
         if (warningsCount[senderID] === 2) {
-          api.sendMessage(`${await getUserName(api, event.senderID)} You have two attempts to violate badwords. You are kicked from the group!`, threadID, messageID);
+          api.sendMessage(`${await getUserName(api, event.senderID)} Bạn đã có hai lần vi phạm từ xấu. Bạn sẽ bị kick khỏi nhóm!`, threadID, messageID);
           api.removeUserFromGroup(senderID, threadID);
         } else {
-          api.sendMessage(`Last Warning! ${await getUserName(api, event.senderID)} Your message has been detected to contain the offensive word "${messageContent}". If you continue to use such language, you will be automatically kicked.`, threadID, messageID);
+          api.sendMessage(`Cảnh cáo cuối cùng! ${await getUserName(api, event.senderID)} Tin nhắn của bạn đã bị phát hiện chứa từ ngữ không phù hợp: "${messageContent}". Nếu bạn tiếp tục sử dụng ngôn ngữ như vậy, bạn sẽ bị kick tự động.`, threadID, messageID);
         }
       }
     }

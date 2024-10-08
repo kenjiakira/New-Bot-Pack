@@ -7,10 +7,11 @@ module.exports = {
   name: "info",
   usedby: 0,
   dev: "Jonell Magallanes",
-  info: "Show the info of owner",  onPrefix: true,
+  info: "Hiển thị thông tin của chủ sở hữu",
+  onPrefix: true,
   cooldowns: 8,
 
-    onLaunch: async function ({ api, event }) {
+  onLaunch: async function ({ api, event }) {
     const imageUrl = "https://i.postimg.cc/vZPSvwrj/KsBpoIu.png";
     const imagePath = path.join(__dirname, 'cache', 'ownerInfo.png');
 
@@ -19,7 +20,7 @@ module.exports = {
     request(imageUrl).pipe(imageStream).on('close', () => {
       api.sendMessage(
         {
-          body: `𝗜𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻 𝗼𝗳 𝗔𝗱𝗺𝗶𝗻𝗕𝗼𝘁\n━━━━━━━━━━━━━━━━━━\nName Owner: ${adminConfig.ownerName}\nBotname: ${adminConfig.botName}\nSystem Prefix: ${adminConfig.prefix}\nOwnerFB: ${adminConfig.facebookLink}`,
+          body: `𝗜𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻 𝗼𝗳 𝗔𝗱𝗺𝗶𝗻𝗕𝗼𝘁\n━━━━━━━━━━━━━━━━━━\nTên chủ sở hữu: ${adminConfig.ownerName}\nTên bot: ${adminConfig.botName}\nTiền tố hệ thống: ${adminConfig.prefix}\nFacebook của chủ sở hữu: ${adminConfig.facebookLink}`,
           attachment: fs.createReadStream(imagePath),
         },
         event.threadID

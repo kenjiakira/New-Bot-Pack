@@ -1,6 +1,6 @@
 module.exports = {
     name: "load",
-    info: "Loads a command",
+    info: "Tải một lệnh",
     onPrefix: true,
     usedby: 2,
     cooldowns: 0,
@@ -8,11 +8,11 @@ module.exports = {
     onLaunch: async function({ target, actions, api, event }) {
         const fs = require('fs');
         let name = target[0];
-        if (!name) return actions.reply('Please enter the command name!');
+        if (!name) return actions.reply('Vui lòng nhập tên lệnh!');
 
         try {
             let msg = "";
-            const h = await actions.reply("Reloading Module...")
+            const h = await actions.reply("Đang tải lại mô-đun...");
             let count = 0;
             if (name === "all") {
                 let errorCount = 0;
@@ -20,7 +20,7 @@ module.exports = {
                 let failedCommand = [];
                 let successCommand = [];
                 for (let file of fs.readdirSync(__dirname).filter(file => file.endsWith('.js'))) {
-                    api.editMessage("Deploying.....", h.messageID, event.threadID, event.messageID)
+                    api.editMessage("Đang triển khai.....", h.messageID, event.threadID, event.messageID);
                     if (file === "load.js") continue;
                     try {
                         delete require.cache[require.resolve(__dirname + `/${file}`)];
@@ -28,42 +28,41 @@ module.exports = {
                         if (newCommand.name && typeof newCommand.name === 'string') {
                             successCount++;
                             successCommand.push(newCommand.name);
-                          count++;
-                            msg += `Loaded ${count}. ${newCommand.name}\n`;
+                            count++;
+                            msg += `Đã tải ${count}. ${newCommand.name}\n`;
                         } else {
-                            throw new Error('Invalid command structure');
+                            throw new Error('Cấu trúc lệnh không hợp lệ');
                         }
                     } catch (e) {
                         errorCount++;
                         failedCommand.push(file);
-                        msg += `Failed to load ${count + 1}. ${file} - ${e.message}\n`;
+                        msg += `Không thể tải ${count + 1}. ${file} - ${e.message}\n`;
                     }
                 }
-                msg += `\nSuccessfully loaded ${successCount} command(s).\nFailed to load ${errorCount} command(s).\n\n${failedCommand.join(", ")}`;
+                msg += `\nĐã tải thành công ${successCount} lệnh.\nKhông thể tải ${errorCount} lệnh.\n\n${failedCommand.join(", ")}`;
                 actions.reply(msg);
                 setTimeout(() => {
-                process.exit(1);
-            }, 2000); 
+                    process.exit(1);
+                }, 2000); 
                 return;
-                
             }
 
-            if (!fs.existsSync(__dirname + `/${name}.js`)) return actions.reply('File ' + name + ".js doesn't exist!");
+            if (!fs.existsSync(__dirname + `/${name}.js`)) return actions.reply('Tập tin ' + name + ".js không tồn tại!");
 
             delete require.cache[require.resolve(__dirname + `/${name}.js`)];
             let newCommand = require(__dirname + '/' + name);
             if (newCommand.name && typeof newCommand.name === 'string') {
-                console.log('Command ' + name + ' has been loaded!');
-                actions.reply('Command ' + name + ' has been loaded!');
+                console.log('Lệnh ' + name + ' đã được tải!');
+                actions.reply('Lệnh ' + name + ' đã được tải!');
             } else {
-                throw new Error('Invalid command structure');
+                throw new Error('Cấu trúc lệnh không hợp lệ');
             }
 
             setTimeout(() => {
                 process.exit(1);
             }, 2000); 
         } catch (s) {
-            return actions.reply('Error: ' + s.message);
+            return actions.reply('Lỗi: ' + s.message);
         }
     }
 };

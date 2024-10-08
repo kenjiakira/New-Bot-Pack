@@ -2,6 +2,7 @@ const capcutLinkRegex = /https:\/\/www\.capcut\.com\/t\/\S*/;
 const axios = require('axios');
 const fs = require('fs');
 const gradient = require('gradient-string');
+
 module.exports = {
     name: 'ccauto',
     ver: '1.0',
@@ -13,7 +14,7 @@ module.exports = {
 
             if (capcutLinkRegex.test(message)) {
                 await downloadAndSendCapcutContent(message, api, event);
-                console.log(gradient.morning(`Capcut Downloader Executed`));
+                console.log(gradient.morning(`Chạy tải xuống Capcut`));
             }
         }
     }
@@ -36,7 +37,7 @@ async function downloadAndSendCapcutContent(url, api, event) {
         fs.writeFileSync(capcutFilePath, Buffer.from(videoResponse.data, 'binary'));
 
         api.sendMessage({
-            body: `𝗖𝗮𝗽𝗰𝘂𝘁 𝗗𝗼𝘄𝗻𝗹𝗼𝗮𝗱𝗲𝗿 𝗔𝘂𝘁𝗼\n━━━━━━━━━━━━━━━━━━\n\n𝗧𝗶𝘁𝗹𝗲: ${result.title}\n\n𝗗𝗲𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻: ${result.description}`,
+            body: `𝗧𝗵𝗲𝗼 𝗱𝗼𝗻𝗴 𝗖𝗮𝗽𝗰𝘂𝘁\n━━━━━━━━━━━━━━━━━━\n\n𝗧𝗶𝘁𝗹𝗲: ${result.title}\n\n𝗗𝗲𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻: ${result.description}`,
             attachment: fs.createReadStream(capcutFilePath)
         }, event.threadID, () => {
             fs.unlinkSync(capcutFilePath);

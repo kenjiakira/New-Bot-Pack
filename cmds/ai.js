@@ -6,7 +6,7 @@ module.exports = {
     dmUser: false,
     dev: "Jonell Magallanes",
     nickName: ["chatgpt", "gpt"],
-    info: "EDUCATIONAL",
+    info: "GIÁO DỤC",
     onPrefix: false,
     cooldowns: 6,
 
@@ -14,12 +14,14 @@ module.exports = {
         const { threadID, senderID } = event;
 
         const followUpApiUrl = `https://jonellprojectccapisexplorer.onrender.com/api/gptconvo?ask=${encodeURIComponent(reply)}&id=${senderID}`;
-api.setMessageReaction("⏱️", event.messageID, () => {}, true);        try {
+        api.setMessageReaction("⏱️", event.messageID, () => {}, true);
+
+        try {
             const response = await axios.get(followUpApiUrl);
             const { response: followUpResult } = response.data;
- 
-           api.setMessageReaction("✅", event.messageID, () => {}, true);
-    api.sendMessage(`𝗖𝗛𝗔𝗧𝗚𝗣𝗧\n━━━━━━━━━━━━━━━━━━\n ${followUpResult}\n━━━━━━━━━━━━━━━━━━`, threadID, event.messageID);
+
+            api.setMessageReaction("✅", event.messageID, () => {}, true);
+            api.sendMessage(`${followUpResult}`, threadID, event.messageID);
         } catch (error) {
             console.error(error);
             api.sendMessage(error.message, threadID);
@@ -30,11 +32,11 @@ api.setMessageReaction("⏱️", event.messageID, () => {}, true);        try {
         const { messageID, threadID } = event;
         const id = event.senderID;
 
-        if (!target[0]) return api.sendMessage("Please provide your question.\n\nExample: ai what is the solar system?", threadID, messageID);
+        if (!target[0]) return api.sendMessage("Vui lòng cung cấp câu hỏi của bạn.\n\nVí dụ: ai hệ mặt trời là gì?", threadID, messageID);
 
         const apiUrl = `https://jonellprojectccapisexplorer.onrender.com/api/gptconvo?ask=${encodeURIComponent(target.join(" "))}&id=${id}`;
 
-        const lad = await actions.reply("🔎 Searching for an answer. Please wait...", threadID, messageID);
+        const lad = await actions.reply("🔎 Đang tìm kiếm câu trả lời. Vui lòng chờ...", threadID, messageID);
 
         try {
             if (event.type === "message_reply" && event.messageReply.attachments && event.messageReply.attachments[0]) {
@@ -48,9 +50,9 @@ api.setMessageReaction("⏱️", event.messageID, () => {}, true);        try {
                     const { vision } = response.data;
 
                     if (vision) {
-                        return api.editMessage(`𝗚𝗲𝗺𝗶𝗻𝗶 𝗩𝗶𝘀𝗶𝗼𝗻 𝗜𝗺𝗮𝗴𝗲 𝗥𝗲𝗰𝗼𝗴𝗻𝗶𝘁𝗶𝗼𝗻 \n━━━━━━━━━━━━━━━━━━\n${vision}\n━━━━━━━━━━━━━━━━━━\n`, lad.messageID, event.threadID, messageID);
+                        return api.editMessage(`${vision}`, lad.messageID, event.threadID, messageID);
                     } else {
-                        return api.sendMessage("🤖 Failed to recognize the image.", threadID, messageID);
+                        return api.sendMessage("🤖 Không thể nhận diện hình ảnh.", threadID, messageID);
                     }
                 }
             }

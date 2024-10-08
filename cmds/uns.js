@@ -8,7 +8,7 @@ module.exports = {
   dev: "Jonell Magallanes",
   onPrefix: false,
   cooldowns: 1,
-  info: "Unsend Message",
+  info: "Hủy tin nhắn",
 
   onLaunch: async function ({ api, event }) {
     const threadInfo = await api.getThreadInfo(event.threadID);
@@ -16,15 +16,15 @@ module.exports = {
     const userIsConfigAdmin = adminConfig.adminUIDs.includes(event.senderID);
 
     if (!userIsGroupAdmin && !userIsConfigAdmin) {
-      return api.sendMessage("You're not an admin of this group, you can't use this command.", event.threadID);
+      return api.sendMessage("Bạn không phải là quản trị viên của nhóm này, bạn không thể sử dụng lệnh này.", event.threadID);
     }
 
     if (event.type !== "message_reply") {
-      return api.sendMessage("Please reply to a message to use this command.", event.threadID);
+      return api.sendMessage("Vui lòng trả lời một tin nhắn để sử dụng lệnh này.", event.threadID);
     }
 
     if (event.messageReply.senderID !== api.getCurrentUserID()) {
-      return api.sendMessage("You can only use this command as a reply to your own message.", event.threadID);
+      return api.sendMessage("Bạn chỉ có thể sử dụng lệnh này như một phản hồi cho tin nhắn của chính bạn.", event.threadID);
     }
 
     return api.unsendMessage(event.messageReply.messageID);

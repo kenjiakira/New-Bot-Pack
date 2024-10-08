@@ -6,13 +6,13 @@ let bannedThreads = {};
 try {
     bannedUsers = JSON.parse(fs.readFileSync('./database/ban/users.json'));
 } catch (err) {
-    console.error("Error reading banned users data file:", err);
+    console.error("Lệnh sự kiện này có lỗi:", err);
 }
 
 try {
     bannedThreads = JSON.parse(fs.readFileSync('./database/ban/threads.json'));
 } catch (err) {
-    console.error("Error reading banned threads data file:", err);
+    console.error("Lỗi đọc tệp dữ liệu người dùng bị cấm:", err);
 }
 
 const saveBannedData = () => {
@@ -20,7 +20,7 @@ const saveBannedData = () => {
         fs.writeFileSync('./database/ban/users.json', JSON.stringify(bannedUsers, null, 2));
         fs.writeFileSync('./database/ban/threads.json', JSON.stringify(bannedThreads, null, 2));
     } catch (err) {
-        console.error("Error saving banned data:", err);
+        console.error("Lỗi lưu dữ liệu bị cấm:", err);
     }
 };
 

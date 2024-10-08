@@ -15,7 +15,7 @@ module.exports = {
     const james = event.messageReply.attachments[0].url || target.join(" ");
 
     try {
-      const hshs = await api.sendMessage("⏱️ | Your Photo is Enhancing. Please Wait....", threadID, messageID);
+      const hshs = await api.sendMessage("⏱️ | Đang nâng chất lượng ảnh của bạn. Vui lòng đợi....", threadID, messageID);
 
       const response = await axios.get(`https://hiroshi-api.onrender.com/image/upscale?url=${encodeURIComponent(james)}`);
       const processedImageURL = response.data; 
@@ -27,17 +27,17 @@ module.exports = {
       writer.on('finish', () => {
         api.unsendMessage(hshs.messageID);
         api.sendMessage({
-          body: "🖼️ | Your Photo has been Enhanced!",
+          body: "🖼️ | Ảnh của bạn đã được nâng chất lượng!",
           attachment: fs.createReadStream(pathie)
         }, threadID, () => fs.unlinkSync(pathie), messageID);
       });
 
       writer.on('error', (error) => {
-        api.sendMessage(`❎ | Error writing image to file: ${error}`, threadID, messageID);
+        api.sendMessage(`❎ | Lỗi khi ghi hình ảnh vào tệp: ${error}`, threadID, messageID);
       });
 
     } catch (error) {
-      api.sendMessage(`❎ | Error processing image: ${error}`, threadID, messageID);
+      api.sendMessage(`❎ | Lỗi xử lý hình ảnh: ${error}`, threadID, messageID);
     }
   }
 };

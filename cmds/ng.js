@@ -5,80 +5,80 @@ const axios = require('axios');
 module.exports = {
   name: "ng",
   usedby: 0,
-  info: "Get music from Newgrounds",
+  info: "Lấy nhạc từ Newgrounds",
   onPrefix: true,
   dev: "Jonell Magallanes",
   cooldowns: 10,
 
-onLaunch: async function ({ api, event, target}) {
-  if (!target[0]) {
-    return api.sendMessage(`❌ Please enter a music name!`, event.threadID);
-  }
-
-  try {
-    const song = target.join(" ");
-    const findingMessage = await api.sendMessage(`🔍 | Finding "${song}". Please wait...`, event.threadID);
-
-    const titlesResponse = await axios.get(`https://jonellprojectccapisexplorer.onrender.com/api/newgrounds?query=${song}`);
-    const titlesData = titlesResponse.data;
-
-    if (!titlesData.length) {
-      await api.sendMessage(`❌ | No results found for "${song}".`, event.threadID);
-      return;
+  onLaunch: async function ({ api, event, target }) {
+    if (!target[0]) {
+      return api.sendMessage(`❌ Vui lòng nhập tên bài hát!`, event.threadID);
     }
 
-    const firstResult = titlesData[0];
-    const { title, link } = firstResult;
+    try {
+      const song = target.join(" ");
+      const findingMessage = await api.sendMessage(`🔍 | Đang tìm "${song}". Vui lòng chờ...`, event.threadID);
 
-    const audioResponse = await axios.get(`https://ccprojectexplorexapisjonellmagallanes.onrender.com/api/ng?play=${song}`);
-    const audioData = audioResponse.data;
+      const titlesResponse = await axios.get(`https://jonellprojectccapisexplorer.onrender.com/api/newgrounds?query=${song}`);
+      const titlesData = titlesResponse.data;
 
-    if (!audioData || !audioData.url) {
-      await api.sendMessage(`❌ | No audio found for "${song}".`, event.threadID);
-      return;
-    }
-
-    const { url: audioUrl } = audioData;
-
-    await api.editMessage(`⏱️ | Music Title has been Found: "${title}". Downloading...`, findingMessage.messageID);
-
-    const responseStream = await axios.get(audioUrl, {
-      responseType: 'stream',
-      headers: { 'User-Agent': 'Mozilla/5.0' }
-    });
-
-    const filePath = path.resolve(__dirname, 'cache', `${Date.now()}-${title}.mp3`);
-    const fileStream = fs.createWriteStream(filePath);
-
-    responseStream.data.pipe(fileStream);
-
-    fileStream.on('finish', async () => {
-      const stats = fs.statSync(filePath);
-      const fileSizeInMB = stats.size / (1024 * 1024);
-
-      if (fileSizeInMB > 25) {
-        await api.sendMessage(`❌ | The file size exceeds 25MB limit. Unable to send "${title}".`, event.threadID);
-        fs.unlinkSync(filePath);
+      if (!titlesData.length) {
+        await api.sendMessage(`❌ | Không tìm thấy kết quả cho "${song}".`, event.threadID);
         return;
       }
 
-      await api.sendMessage({
-        body: `🎵 | Here is your music: "${title}"\n\nTitle: ${title}\nNewgrounds Link: ${link}\nDownload Link: ${audioUrl}`,
-        attachment: fs.createReadStream(filePath)
-      }, event.threadID);
+      const firstResult = titlesData[0];
+      const { title, link } = firstResult;
 
-      fs.unlinkSync(filePath);
-      api.unsendMessage(findingMessage.messageID);
-    });
+      const audioResponse = await axios.get(`https://ccprojectexplorexapisjonellmagallanes.onrender.com/api/ng?play=${song}`);
+      const audioData = audioResponse.data;
 
-    responseStream.data.on('error', async (error) => {
+      if (!audioData || !audioData.url) {
+        await api.sendMessage(`❌ | Không tìm thấy âm thanh cho "${song}".`, event.threadID);
+        return;
+      }
+
+      const { url: audioUrl } = audioData;
+
+      await api.editMessage(`⏱️ | Đã tìm thấy tiêu đề bài hát: "${title}". Đang tải xuống...`, findingMessage.messageID);
+
+      const responseStream = await axios.get(audioUrl, {
+        responseType: 'stream',
+        headers: { 'User-Agent': 'Mozilla/5.0' }
+      });
+
+      const filePath = path.resolve(__dirname, 'cache', `${Date.now()}-${title}.mp3`);
+      const fileStream = fs.createWriteStream(filePath);
+
+      responseStream.data.pipe(fileStream);
+
+      fileStream.on('finish', async () => {
+        const stats = fs.statSync(filePath);
+        const fileSizeInMB = stats.size / (1024 * 1024);
+
+        if (fileSizeInMB > 25) {
+          await api.sendMessage(`❌ | Kích thước tệp vượt quá giới hạn 25MB. Không thể gửi "${title}".`, event.threadID);
+          fs.unlinkSync(filePath);
+          return;
+        }
+
+        await api.sendMessage({
+          body: `🎵 | Đây là nhạc của bạn: "${title}"\n\nTiêu đề: ${title}\nLiên kết Newgrounds: ${link}\nLiên kết tải xuống: ${audioUrl}`,
+          attachment: fs.createReadStream(filePath)
+        }, event.threadID);
+
+        fs.unlinkSync(filePath);
+        api.unsendMessage(findingMessage.messageID);
+      });
+
+      responseStream.data.on('error', async (error) => {
+        console.error(error);
+        await api.sendMessage(`❌ | Xin lỗi, đã xảy ra lỗi khi tải nhạc: ${error.message}`, event.threadID);
+        fs.unlinkSync(filePath);
+      });
+    } catch (error) {
       console.error(error);
-      await api.sendMessage(`❌ | Sorry, there was an error downloading the music: ${error.message}`, event.threadID);
-      fs.unlinkSync(filePath);
-    });
-  } catch (error) {
-    console.error(error);
-    await api.sendMessage(`❌ | Sorry, there was an error getting the music: ${error.message}`, event.threadID);
+      await api.sendMessage(`❌ | Xin lỗi, đã xảy ra lỗi khi lấy nhạc: ${error.message}`, event.threadID);
+    }
   }
-}
 }

@@ -6,7 +6,7 @@ const chalk = require('chalk');
 const gradient = require('gradient-string');
 const moment = require("moment-timezone");
 
-const time = moment.tz("Asia/Manila").format("LLLL");
+const time = moment.tz("Asia/Ho_Chi_Minh").format("LLLL");
 let adminConfig = { adminUIDs: [], notilogs: true };
 let usersData = {};
 let threadsData = {};
@@ -34,10 +34,10 @@ const notifyAdmins = async (api, threadID, action, senderID) => {
                 // await api.sendMessage(notificationMessage, adminID); // Disabled for now
             }
         } else {
-            console.error("Admin IDs are not defined or not an array.");
+            console.error("ID quản trị viên không được xác định hoặc không phải là một mảng.");
         }
     } else {
-        console.log(`${boldText(gradientText(`ADMIN NOTICE: NOTIFICATION LOGS IS DISABLED`))}`);
+        console.log(`${boldText(gradientText(`THÔNG BÁO CỦA QUẢN TRỊ VIÊN: NHẬT KÝ THÔNG BÁO BỊ TẮT`))}`);
     }
 };
 
@@ -46,25 +46,25 @@ const logChatRecord = async (api, event) => {
     const senderID = event.senderID;
     const userName = await getUserName(api, senderID);
     const groupName = await getGroupName(api, threadID);
-    const logHeader = gradientText("━━━━━━━━━━[ DATABASE THREADS BOT LOGS ]━━━━━━━━━━");
+    const logHeader = gradientText("━━━━━━━━━━[ CHUỖI CSDL NHẬT KÝ BOT ]━━━━━━━━━━");
 
     if (event.body) {
         console.log(logHeader);
         console.log(gradientText("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓"));
-        console.log(`${boldText(gradientText(`┣➤ Group: ${groupName}`))}`);
-        console.log(`${boldText(gradientText(`┣➤ Group ID: ${threadID}`))}`);
-        console.log(`${boldText(gradientText(`┣➤ User ID: ${senderID}`))}`);
-        console.log(`${boldText(gradientText(`┣➤ Content: ${event.body}`))}`);
-        console.log(`${boldText(gradientText(`┣➤ Time: ${time}`))}`);
+        console.log(`${boldText(gradientText(`┣➤ Nhóm: ${groupName}`))}`);
+        console.log(`${boldText(gradientText(`┣➤ ID nhóm: ${threadID}`))}`);
+        console.log(`${boldText(gradientText(`┣➤ ID Người dùng: ${senderID}`))}`);
+        console.log(`${boldText(gradientText(`┣➤ nội dung: ${event.body}`))}`);
+        console.log(`${boldText(gradientText(`┣➤ vào lúc: ${time}`))}`);
         console.log(gradientText("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛"));
     } else if (event.attachments || event.stickers) {
         console.log(logHeader);
         console.log(gradientText("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓"));
-        console.log(`${boldText(gradientText(`┣➤ Group: ${groupName}`))}`);
-        console.log(`${boldText(gradientText(`┣➤ Group ID: ${threadID}`))}`);
-        console.log(`${boldText(gradientText(`┣➤ User ID: ${senderID}`))}`);
-        console.log(`${boldText(gradientText(`┣➤ Content: ${userName} sent an attachment or stickers`))}`);
-        console.log(`${boldText(gradientText(`┣➤ Time: ${time}`))}`);
+        console.log(`${boldText(gradientText(`┣➤ Nhóm: ${groupName}`))}`);
+        console.log(`${boldText(gradientText(`┣➤ ID nhóm: ${threadID}`))}`);
+        console.log(`${boldText(gradientText(`┣➤ ID Người dùng: ${senderID}`))}`);
+        console.log(`${boldText(gradientText(`┣➤ nội dung: ${userName} gửi 1 nhãn dán`))}`);
+        console.log(`${boldText(gradientText(`┣➤ vào lúc: ${time}`))}`);
         console.log(gradientText("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛"));
     }
 };
@@ -72,13 +72,13 @@ const logChatRecord = async (api, event) => {
 const handleBotAddition = async (api, threadID, senderID) => {
     const userName = await getUserName(api, senderID);
     const groupName = await getGroupName(api, threadID);
-    console.log(`Bot was added to the group.\nGroup Name: ${groupName}\nThreadID: ${threadID}\nAdded by: ${userName}`);
+    console.log(`Bot đã được thêm vào nhóm.\ntên nhóm: ${groupName}\nThreadID: ${threadID}\nThêm bởi: ${userName}`);
 };
 
 const handleBotRemoval = async (api, threadID, senderID) => {
     const userName = await getUserName(api, senderID);
     const groupName = await getGroupName(api, threadID);
-    console.log(`Bot was removed from the group.\nGroup Name: ${groupName}\nThreadID: ${threadID}\nRemoved by: ${userName}`);
+    console.log(`Bot đã bị xóa khỏi nhóm.\ntên nhóm: ${groupName}\nThreadID: ${threadID}\nbị xóa bởi: ${userName}`);
     await removeFromDatabase(threadID, senderID);
 };
 
@@ -87,13 +87,13 @@ const removeFromDatabase = (threadID, senderID) => {
     if (usersData[senderID]) {
         delete usersData[senderID];
         fs.writeFileSync(usersPath, JSON.stringify(usersData, null, 2));
-        console.log(`[DATABASE] Removed senderID: ${senderID}`);
+        console.log(`[DATABASE] xóa senderID: ${senderID}`);
         removed = true;
     }
     if (threadsData[threadID]) {
         delete threadsData[threadID];
         fs.writeFileSync(threadsPath, JSON.stringify(threadsData, null, 2));
-        console.log(`[DATABASE] Removed threadID: ${threadID}`);
+        console.log(`[DATABASE] xóa threadID: ${threadID}`);
         removed = true;
     }
     return removed;
@@ -104,7 +104,7 @@ const getGroupName = async (api, threadID) => {
         const threadInfo = await api.getThreadInfo(threadID);
         return threadInfo.name || "Group Chat";
     } catch (error) {
-        console.error(`Failed to get group name for threadID: ${threadID}`, error);
+        console.error(`Thất bại khi lấy tên của threadID: ${threadID}`, error);
         return "Group Chat";
     }
 };
@@ -114,7 +114,7 @@ const getUserName = async (api, userID) => {
         const userInfo = await api.getUserInfo(userID);
         return userInfo[userID]?.name || "Unknown User";
     } catch (error) {
-        console.error(`Failed to get user name for userID: ${userID}`, error);
+        console.error(`Thất bại khi lấy tên của userID: ${userID}`, error);
         return "Unknown User";
     }
 };

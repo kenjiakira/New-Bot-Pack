@@ -7,7 +7,7 @@ module.exports = {
   dev: "Jonell Magallanes",
   onPrefix: true,
   cooldowns: 1,
-  info: "Admin and Moderator List",
+  info: "Danh sách Quản trị viên và Điều hành viên",
   hide: true,
 
   onLaunch: async function ({ api, event, target }) {
@@ -27,7 +27,7 @@ module.exports = {
       let targetUID = target[2] || replyUser;
 
       if ((action === "add" || action === "remove") && !targetUID) {
-        return api.sendMessage("Please specify a UID or reply to a user.", event.threadID);
+        return api.sendMessage("Vui lòng chỉ định một UID hoặc phản hồi tới một người dùng.", event.threadID);
       }
 
       if (action === "add") {
@@ -36,7 +36,7 @@ module.exports = {
           fs.writeFileSync("admin.json", JSON.stringify(adminConfig, null, 2), "utf8");
           let userName = await getUserName(targetUID);
           if (userName) {
-            return api.sendMessage(`🛡️ 𝗔𝗱𝗺𝗶𝗻 𝗔𝗱𝗱𝗲𝗱\n${global.line}\nSuccessfully added new admin ${userName}`, event.threadID, () => {
+            return api.sendMessage(`🛡️ 𝗔𝗱𝗺𝗶𝗻 𝗔𝗱𝗱𝗲𝗱\n${global.line}\nĐã thêm quản trị viên mới ${userName}`, event.threadID, () => {
               process.exit(1);
             });
           }
@@ -46,14 +46,14 @@ module.exports = {
           fs.writeFileSync("admin.json", JSON.stringify(adminConfig, null, 2), "utf8");
           let userName = await getUserName(targetUID);
           if (userName) {
-            return api.sendMessage(`👮 𝗠𝗼𝗱𝗲𝗿𝗮𝘁𝗼𝗿 𝗔𝗱𝗱𝗲𝗱\n${global.line}\nSuccessfully added new moderator ${userName}`, event.threadID, () => {
+            return api.sendMessage(`👮 𝗠𝗼𝗱𝗲𝗿𝗮𝘁𝗼𝗿 𝗔𝗱𝗱𝗲𝗱\n${global.line}\nĐã thêm điều hành viên mới ${userName}`, event.threadID, () => {
               process.exit(1);
             });
           }
         } else {
           let userName = await getUserName(targetUID);
           if (userName) {
-            return api.sendMessage(`${userName} is already an ${role}.`, event.threadID);
+            return api.sendMessage(`${userName} đã là một ${role}.`, event.threadID);
           }
         }
       }
@@ -64,7 +64,7 @@ module.exports = {
           fs.writeFileSync("admin.json", JSON.stringify(adminConfig, null, 2), "utf8");
           let userName = await getUserName(targetUID);
           if (userName) {
-            return api.sendMessage(`🛡️ 𝗔𝗱𝗺𝗶𝗻 𝗥𝗲𝗺𝗼𝘃𝗲𝗱\n${global.line}\nSuccessfully removed admin ${userName}`, event.threadID, () => {
+            return api.sendMessage(`🛡️ 𝗔𝗱𝗺𝗶𝗻 𝗥𝗲𝗺𝗼𝘃𝗲𝗱\n${global.line}\nĐã xóa quản trị viên ${userName}`, event.threadID, () => {
               process.exit(1);
             });
           }
@@ -85,16 +85,16 @@ module.exports = {
         }
       }
 
-      let message = `👥 𝗔𝗱𝗺𝗶𝗻 𝗮𝗻𝗱 𝗠𝗼𝗱𝗲𝗿𝗮𝘁𝗼𝗿 𝗟𝗶𝘀𝘁\n${global.line}\n🛡️ Admins:\n${adminList.join("\n")}\n\n`;
+      let message = `👥 𝗗𝗮𝗻𝗵 𝘀á𝗰𝗵 𝗤𝘂ản 𝘁𝗿ị 𝘃𝗶𝗲𝗻 𝘃à 𝗗𝗶𝗲̂̀𝘇 𝗵𝗮̀𝗻𝗵\n${global.line}\n🛡️ Quản trị viên:\n${adminList.join("\n")}\n\n`;
       if (moderatorList.length > 0) {
-        message += `👮 Moderators:\n${moderatorList.join("\n")}`;
+        message += `👮 Điều hành viên:\n${moderatorList.join("\n")}`;
       } else {
-        message += `👮 No moderators assigned.`;
+        message += `👮 Không có điều hành viên nào được chỉ định.`;
       }
 
       api.sendMessage(message, event.threadID);
     } else {
-      api.sendMessage(`🛡️ 𝗨𝗻𝗮𝘂𝘁𝗵𝗼𝗿𝗶𝘇𝗲𝗱\n${global.line}\nYou are not authorized to use this command.`, event.threadID);
+      api.sendMessage(`🛡️ 𝗚𝗵𝗶 𝗰hú𝗰 𝗰𝗵𝗼 𝗴𝗵𝗶 𝗰𝗵ú𝗰\n${global.line}\nBạn không có quyền sử dụng lệnh này.`, event.threadID);
     }
   }
 };

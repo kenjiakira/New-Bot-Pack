@@ -16,7 +16,7 @@ module.exports = {
             const response = await axios.get(followUpApiUrl);
             const followUpResult = response.data.reply;
             api.setMessageReaction("✅", event.messageID, () => {}, true);
-            api.sendMessage(`𝗔𝗜 𝗥𝗲𝘀𝗽𝗼𝗻𝘀𝗲\n━━━━━━━━━━━━━━━━━━\n${followUpResult}\n━━━━━━━━━━━━━━━━━━`, threadID);
+            api.sendMessage(`${followUpResult}`, threadID);
         } catch (error) {
             console.error(error);
             api.sendMessage(error.message, threadID);
@@ -27,15 +27,15 @@ module.exports = {
         const { messageID, threadID } = event;
         const id = event.senderID;
 
-        if (!target[0]) return api.sendMessage("Please provide your question.\n\nExample: ai what is the solar system?", threadID, messageID);
+        if (!target[0]) return api.sendMessage("Vui lòng cung cấp câu hỏi của bạn.\n\nVí dụ: ai hệ mặt trời là gì?", threadID, messageID);
 
         const apiUrl = `https://hercai.onrender.com/v3/hercai?question=${encodeURIComponent(target.join(" "))}`;
-       const haha = await api.sendMessage("🔎 Searching for an answer. Please wait...", threadID, messageID);
+       const haha = await api.sendMessage("🔎 Tìm kiếm câu trả lời. Hãy chờ...", threadID, messageID);
 
         try {
             const response = await axios.get(apiUrl);
             const result = response.data.reply;
-            api.editMessage(`𝗔𝗜 𝗥𝗲𝘀𝗽𝗼𝗻𝘀𝗲\n━━━━━━━━━━━━━━━━━━\n${result}\n━━━━━━━━━━━━━━━━━━`, haha.messageID, threadID, event.messageID);
+            api.editMessage(`${result}`, haha.messageID, threadID, event.messageID);
 
             global.client.onReply.push({
                 name: this.name,

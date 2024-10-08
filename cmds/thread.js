@@ -18,7 +18,7 @@ function loadPendingThreads() {
 module.exports = {
     name: "thread",
     usedby: 2,
-    info: "Manage thread approvals",
+    info: "Quản lý phê duyệt nhóm",
     onPrefix: true,
     dev: "Jonell Magallanes",
     cooldowns: 1,
@@ -29,20 +29,20 @@ module.exports = {
         const index = parseInt(reply.split(" ")[0]) - 1;
 
         if (isNaN(index) || index < 0 || index >= pending.length) {
-            return api.sendMessage("Invalid index provided. Please reply with a valid number from the list.", threadID);
+            return api.sendMessage("Số thứ tự không hợp lệ. Vui lòng trả lời bằng một số hợp lệ từ danh sách.", threadID);
         }
 
         const threadToApprove = pending[index];
 
         if (body.toLowerCase() === "approve") {
-            await api.sendMessage("𝗔𝗽𝗽𝗿𝗼𝘃𝗲𝗱 𝗚𝗿𝗼𝘂𝗽 𝗖𝗵𝗮𝘁\n━━━━━━━━━━━━━━━━━━\nYour thread has been successfully approved.", threadToApprove.threadID);
+            await api.sendMessage("𝗚𝗿𝗼𝘂𝗽 𝗖𝗵𝗮𝘁 𝗡𝗵𝗮𝗻𝗵 𝗻𝗵𝗮̣̂𝗻\n━━━━━━━━━━━━━━━━━━\nNhóm của bạn đã được phê duyệt thành công.", threadToApprove.threadID);
             await api.changeNickname(`${adminConfig.botName} • [ ${adminConfig.prefix} ]`, threadToApprove.threadID, api.getCurrentUserID());
-            await api.sendMessage(`⚙️ 𝗧𝗵𝗿𝗲𝗮𝗱𝘀 𝗠𝗮𝗻𝗮𝗴𝗲𝗿 \n━━━━━━━━━━━━━━━━━━\nThe thread "${threadToApprove.name}" has been approved.`, threadID);
+            await api.sendMessage(`⚙️ 𝗠𝗮𝗻𝗮𝗴𝗲𝗿 𝗧𝗵𝗿𝗲𝗮𝗱𝘀 \n━━━━━━━━━━━━━━━━━━\nNhóm "${threadToApprove.name}" đã được phê duyệt.`, threadID);
         } else if (body.toLowerCase() === "decline") {
-            await api.sendMessage("❌ 𝗬𝗼𝘂𝗿 𝗿𝗲𝗾𝘂𝗲𝘀𝘁 𝗵𝗮𝘀 𝗯𝗲𝗲𝗻 𝗱𝗲𝗰𝗹𝗶𝗻𝗲𝗱.", threadToApprove.threadID);
-            await api.sendMessage(`⚙️ 𝗧𝗵𝗿𝗲𝗮𝗱𝘀 𝗠𝗮𝗻𝗮𝗴𝗲𝗿 \n━━━━━━━━━━━━━━━━━━\nThe thread "${threadToApprove.name}" has been declined.`, threadID);
+            await api.sendMessage("❌ 𝗥𝗲𝗾𝘂𝗲𝘀𝘁 𝗰𝗼́ 𝘁𝗵𝗮̀𝗻𝗵 𝗰𝗼́ 𝗰𝗵𝗼𝗽 𝗵𝗼𝗻.", threadToApprove.threadID);
+            await api.sendMessage(`⚙️ 𝗠𝗮𝗻𝗮𝗴𝗲𝗿 𝗧𝗵𝗿𝗲𝗮𝗱𝘀 \n━━━━━━━━━━━━━━━━━━\nNhóm "${threadToApprove.name}" đã bị từ chối.`, threadID);
         } else {
-            return api.sendMessage("Invalid response. Please reply with 'approve' or 'decline'.", threadID);
+            return api.sendMessage("Phản hồi không hợp lệ. Vui lòng trả lời bằng 'approve' hoặc 'decline'.", threadID);
         }
 
         pending.splice(index, 1);
@@ -51,7 +51,7 @@ module.exports = {
 
     onLaunch: async function ({ api, event, target }) {
         try {
-            const lod = await api.sendMessage("Loading...", event.threadID);
+            const lod = await api.sendMessage("Đang tải...", event.threadID);
             let pending = loadPendingThreads();
 
             if (target.length > 0) {
@@ -59,7 +59,7 @@ module.exports = {
                 if (!isNaN(index) && index >= 0 && index < pending.length) {
                     const threadToApprove = pending[index];
 
-                    await api.sendMessage("Reply with 'approve' or 'decline' for the thread:\n" + threadToApprove.name, event.threadID);
+                    await api.sendMessage("Vui lòng trả lời với 'approve' hoặc 'decline' cho nhóm:\n" + threadToApprove.name, event.threadID);
                     global.client.onReply.push({
                         name: this.name,
                         messageID: lod.messageID,
@@ -68,23 +68,23 @@ module.exports = {
                     });
 
                 } else {
-                    await api.sendMessage("Invalid index provided. Please reply with a valid number from the list.", event.threadID);
+                    await api.sendMessage("Số thứ tự không hợp lệ. Vui lòng trả lời bằng một số hợp lệ từ danh sách.", event.threadID);
                 }
             } else {
                 pending = await api.getThreadList(100, null, ["PENDING"]) || [];
                 savePendingThreads(pending);
 
                 if (pending.length === 0) {
-                    await api.editMessage("⚙️ 𝗧𝗵𝗿𝗲𝗮𝗱𝘀 𝗠𝗮𝗻𝗮𝗴𝗲𝗿 \n━━━━━━━━━━━━━━━━━━\nThere are no pending and spam threads recorded on the database.", lod.messageID, event.threadID);
+                    await api.editMessage("⚙️ 𝗠𝗮𝗻𝗮𝗴𝗲𝗿 𝗧𝗵𝗿𝗲𝗮𝗱𝘀 \n━━━━━━━━━━━━━━━━━━\nKhông có nhóm đang chờ được phê duyệt và spam được ghi lại trong cơ sở dữ liệu.", lod.messageID, event.threadID);
                 } else {
-                    let pendingMessage = `⚙️ 𝗧𝗵𝗿𝗲𝗮𝗱𝘀 𝗠𝗮𝗻𝗮𝗴𝗲𝗿 \n━━━━━━━━━━━━━━━━━━\n${pending.map((thread, i) => `${i + 1}. ${thread.name}`).join('\n')}`;
+                    let pendingMessage = `⚙️ 𝗠𝗮𝗻𝗮𝗴𝗲𝗿 𝗧𝗵𝗿𝗲𝗮𝗱𝘀 \n━━━━━━━━━━━━━━━━━━\n${pending.map((thread, i) => `${i + 1}. ${thread.name}`).join('\n')}`;
                     await api.editMessage(pendingMessage, lod.messageID, event.threadID);
                 }
             }
 
         } catch (error) {
-            console.error("Error managing threads:", error);
-            await api.sendMessage("An error occurred while managing threads.", event.threadID);
+            console.error("Lỗi quản lý nhóm:", error);
+            await api.sendMessage("Đã xảy ra lỗi trong quá trình quản lý nhóm.", event.threadID);
         }
     }
 };

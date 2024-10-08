@@ -14,7 +14,7 @@ module.exports = {
 
             if (facebookLinkRegex.test(message)) {
                 await downloadAndSendFBContent(message, api, event);
-                console.log(gradient.morning(`Facebook Downloader Executed`));
+                console.log(gradient.morning(`Chạy tải xuống DownAuto FB`));
             }
         }
     }
