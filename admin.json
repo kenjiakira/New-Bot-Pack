@@ -1,0 +1,24 @@
+{
+  "prefix": ".",
+  "adminUIDs": [
+    "61561753304881"
+  ],
+  "moderatorUIDs": [
+    "61561753304881",
+    "",
+    ""
+  ],
+  "botName": "Akira",
+  "ownerName": "Akira",
+  "facebookLink": "https://www.facebook.com/KenjiDevv",
+  "resend": false,
+  "notilogs": true,
+  "appstate": "./appstate.json",
+  "restart": true,
+  "restartTime": 50,
+  "loginpanel": {
+    "user": "your username on dashboard",
+    "password": "your password",
+    "passcode": "passcode but is not working for now"
+  }
+}
