@@ -6,7 +6,7 @@ module.exports = {
     dmUser: false,
     dev: "Jonell Magallanes",
     nickName: ["chatgpt", "gpt"],
-    info: "GIÁO DỤC",
+    info: "AI Chat GPT",
     onPrefix: false,
     cooldowns: 6,
 

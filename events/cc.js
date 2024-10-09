@@ -37,7 +37,7 @@ async function downloadAndSendCapcutContent(url, api, event) {
         fs.writeFileSync(capcutFilePath, Buffer.from(videoResponse.data, 'binary'));
 
         api.sendMessage({
-            body: `𝗧𝗵𝗲𝗼 𝗱𝗼𝗻𝗴 𝗖𝗮𝗽𝗰𝘂𝘁\n━━━━━━━━━━━━━━━━━━\n\n𝗧𝗶𝘁𝗹𝗲: ${result.title}\n\n𝗗𝗲𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻: ${result.description}`,
+            body: `𝗧𝗶𝘁𝗹𝗲: ${result.title}\n\n𝗗𝗲𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻: ${result.description}`,
             attachment: fs.createReadStream(capcutFilePath)
         }, event.threadID, () => {
             fs.unlinkSync(capcutFilePath);

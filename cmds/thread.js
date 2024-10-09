@@ -35,12 +35,12 @@ module.exports = {
         const threadToApprove = pending[index];
 
         if (body.toLowerCase() === "approve") {
-            await api.sendMessage("𝗚𝗿𝗼𝘂𝗽 𝗖𝗵𝗮𝘁 𝗡𝗵𝗮𝗻𝗵 𝗻𝗵𝗮̣̂𝗻\n━━━━━━━━━━━━━━━━━━\nNhóm của bạn đã được phê duyệt thành công.", threadToApprove.threadID);
+            await api.sendMessage("Nhóm của bạn đã được phê duyệt thành công.", threadToApprove.threadID);
             await api.changeNickname(`${adminConfig.botName} • [ ${adminConfig.prefix} ]`, threadToApprove.threadID, api.getCurrentUserID());
-            await api.sendMessage(`⚙️ 𝗠𝗮𝗻𝗮𝗴𝗲𝗿 𝗧𝗵𝗿𝗲𝗮𝗱𝘀 \n━━━━━━━━━━━━━━━━━━\nNhóm "${threadToApprove.name}" đã được phê duyệt.`, threadID);
+            await api.sendMessage(`⚙️ Nhóm "${threadToApprove.name}" đã được phê duyệt.`, threadID);
         } else if (body.toLowerCase() === "decline") {
-            await api.sendMessage("❌ 𝗥𝗲𝗾𝘂𝗲𝘀𝘁 𝗰𝗼́ 𝘁𝗵𝗮̀𝗻𝗵 𝗰𝗼́ 𝗰𝗵𝗼𝗽 𝗵𝗼𝗻.", threadToApprove.threadID);
-            await api.sendMessage(`⚙️ 𝗠𝗮𝗻𝗮𝗴𝗲𝗿 𝗧𝗵𝗿𝗲𝗮𝗱𝘀 \n━━━━━━━━━━━━━━━━━━\nNhóm "${threadToApprove.name}" đã bị từ chối.`, threadID);
+            await api.sendMessage("❌ Yêu cầu của bạn đã bị từ chối.", threadToApprove.threadID);
+            await api.sendMessage(`⚙️ Nhóm "${threadToApprove.name}" đã bị từ chối.`, threadID);
         } else {
             return api.sendMessage("Phản hồi không hợp lệ. Vui lòng trả lời bằng 'approve' hoặc 'decline'.", threadID);
         }

@@ -109,20 +109,20 @@ const handleListenEvents = (api, commands, eventCommands, threadsDB, usersDB) =>
             }
 
             if (isPrefixed && commandName === '') {
-                const notFoundMessage = `Không tìm thấy lệnh. Vui lòng nhập ${adminConfig.prefix}help để xem tất cả các lệnh.`;
+                const notFoundMessage = `Vui lòng nhập ${adminConfig.prefix}help để xem các lệnh.`;
                 return api.sendMessage(notFoundMessage, threadID);
             }
 
             const allCommands = Object.keys(commands).concat(Object.values(commands).flatMap(cmd => cmd.aliases || []));
             if (isPrefixed && commandName !== '' && !allCommands.includes(commandName)) {
-                const notFoundMessage = `Lệnh"${commandName}" Không tìm thấy. vui lòng nhập ${adminConfig.prefix}help để xem tất cả các lệnh.`;
+                const notFoundMessage = `Không có Lệnh "${commandName}". vui lòng nhập ${adminConfig.prefix}help để xem các lệnh.`;
                 return api.sendMessage(notFoundMessage, threadID, (err, info) => {
                     if (!err) {
                         setTimeout(() => api.unsendMessage(info.messageID), 20000);
                     }
                 });
             }
-//don't steal the code okay because i add secret gban
+
             const command = commands[commandName] || Object.values(commands).find(cmd => cmd.nickName && cmd.nickName.includes(commandName));
 
             if (command) {

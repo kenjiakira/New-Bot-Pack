@@ -4,7 +4,7 @@ module.exports = {
     name: "ai2",
     usedby: 0,
     dev: "Jonell Magallanes",
-    info: "EDUCATIONAL",
+    info: "AI Gemini",
     onPrefix: false,
     cooldowns: 6,
 

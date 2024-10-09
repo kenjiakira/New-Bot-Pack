@@ -1,5 +1,5 @@
 module.exports = {
-    name: "maintenance",
+    name: "baotri",
     usedby: 2,
     info: "Bảo trì bot",
     onPrefix: true,
@@ -23,7 +23,7 @@ module.exports = {
           if(thread.isGroup === true && thread.threadID !== event.threadID) {
             var link = "https://i.postimg.cc/NFdDc0vV/RFq-BU56n-ES.gif";  
             var callback = () => api.sendMessage({ 
-              body: `𝗕𝗼𝘁 𝗠𝗮𝗶𝗻𝘁𝗲𝗻𝗮𝗻𝗰𝗲 𝗠𝗼𝗱𝗲\n━━━━━━━━━━━━━━━━━━\n${adminConfig.botName} 𝗁𝖺𝗌 𝖻𝖾𝖾𝗇 𝖬𝖺𝗂𝗇𝗍𝖾𝗇𝖺𝗇𝖼𝖾. 𝖯𝗅𝖾𝖺𝗌𝖾 𝖻𝖾 𝗉𝖺𝗍𝗂𝖾𝗇𝗍.\n\n𝖱𝖾𝖺𝗌𝗈𝗇: ${content}\n\n𝖣𝖾𝗏𝖾𝗅𝗈𝗉𝖾𝗋: ${adminConfig.ownerName}`, 
+              body: ` DEV MOD \n━━━━━━━━━━━━━━━━━━\n${adminConfig.botName} đang trong chế độ bảo trì. Xin vui lòng chờ.\n\n𝖱𝖾𝖺𝗌𝗈𝗇: ${content}\n\n𝖣𝖾𝗏𝖾𝗅𝗈𝗉𝖾𝗋: ${adminConfig.ownerName}`, 
               attachment: fs.createReadStream(__dirname + "/cache/maintenance.gif")
             }, 
             thread.threadID, 

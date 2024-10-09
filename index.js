@@ -14,7 +14,7 @@ function startBotProcess(script) {
     child.on("close", (codeExit) => {
         console.log(`${script} process exited with code: ${codeExit}`);
         if (codeExit !== 0) {
-            setTimeout(() => startBotProcess(script), 3000);
+            setTimeout(() => startBotProcess(script), 8080);
         }
     });
 

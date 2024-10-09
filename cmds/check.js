@@ -28,11 +28,11 @@ module.exports = {
 
             let emoji;
             if (statusCode === "200") {
-                emoji = "🟢"; // Màu xanh cho thành công
+                emoji = "🟢"; 
             } else if (statusCode.startsWith("4") || statusCode.startsWith("5")) {
-                emoji = "🔴"; // Màu đỏ cho lỗi
+                emoji = "🔴"; 
             } else {
-                emoji = "🟠"; // Màu cam cho trạng thái khác
+                emoji = "🟠"; 
             }
 
             const message = `
