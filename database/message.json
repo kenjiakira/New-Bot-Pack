@@ -21038,5 +21038,50 @@
   "mid.$gABdo12YYX5eYoy8iJGScehsgZNQs": {
     "body": ".noti Ê",
     "attachments": []
+  },
+  "mid.$gAB55OXIYaz6Yoy_sBWSceqY5eHeP": {
+    "body": "",
+    "attachments": [
+      {
+        "type": "photo",
+        "ID": "925000963026089",
+        "filename": "image-925000963026089",
+        "fileSize": 102322,
+        "original_extension": "jpg",
+        "mimeType": "image/jpeg",
+        "thumbnailUrl": "https://scontent.xx.fbcdn.net/v/t1.15752-9/462560008_925000966359422_2000608952933156753_n.jpg?stp=cp0_dst-jpg_p34x34&_nc_cat=101&ccb=1-7&_nc_sid=9f807c&_nc_ohc=7V-R9EgbHcUQ7kNvgGYvK-n&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&_nc_gid=AkA-nMbgD_aD_3pSVUcgHfs&oh=03_Q7cD1QF0VpCtkhytAnNGbdIKFakn0z0BXGsqQb7NnIt-zX8gRg&oe=672E1246",
+        "previewUrl": "https://scontent.xx.fbcdn.net/v/t1.15752-9/462560008_925000966359422_2000608952933156753_n.jpg?stp=dst-jpg_p280x280&_nc_cat=101&ccb=1-7&_nc_sid=9f807c&_nc_ohc=7V-R9EgbHcUQ7kNvgGYvK-n&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&_nc_gid=AkA-nMbgD_aD_3pSVUcgHfs&oh=03_Q7cD1QGXcgljFkm0ewnfFSVioa2pyMBb-uFKF9uUyz4Dxx53vA&oe=672E1246",
+        "previewWidth": 498,
+        "previewHeight": 280,
+        "largePreviewUrl": "https://scontent.xx.fbcdn.net/v/t1.15752-9/462560008_925000966359422_2000608952933156753_n.jpg?stp=dst-jpg_p480x480&_nc_cat=101&ccb=1-7&_nc_sid=9f807c&_nc_ohc=7V-R9EgbHcUQ7kNvgGYvK-n&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&_nc_gid=AkA-nMbgD_aD_3pSVUcgHfs&oh=03_Q7cD1QHgm8fk5iibc4Kkw-AbNaGvmg1LwPF8hDtrbV0mJgT-Gg&oe=672E1246",
+        "largePreviewWidth": 853,
+        "largePreviewHeight": 480,
+        "url": "https://scontent.xx.fbcdn.net/v/t1.15752-9/462560008_925000966359422_2000608952933156753_n.jpg?stp=dst-jpg_p480x480&_nc_cat=101&ccb=1-7&_nc_sid=9f807c&_nc_ohc=7V-R9EgbHcUQ7kNvgGYvK-n&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&_nc_gid=AkA-nMbgD_aD_3pSVUcgHfs&oh=03_Q7cD1QHgm8fk5iibc4Kkw-AbNaGvmg1LwPF8hDtrbV0mJgT-Gg&oe=672E1246",
+        "width": 2048,
+        "height": 1152,
+        "name": "image-925000963026089"
+      }
+    ]
+  },
+  "mid.$gAB55OXIYaz6YozAMUmScerDOhexO": {
+    "body": "là bá dữ ch",
+    "attachments": []
+  },
+  "mid.$gAB55OXIYaz6YozCKFGSces_ANcFZ": {
+    "body": "",
+    "attachments": [
+      {
+        "type": "audio",
+        "ID": "AT1VEBCcG2ZLePDM4CyDxRcCLDcJGqGqnQt7EcTSKq7a10L7nZI9UNyzXFeos5ANEzvi5J82km185Yzj6H7TPik7richvTX2ATLZOd4WlZ3FjXSnRYQkebl32s6ukXXIk63h6zxeasJXNkYpycoTTKITr6g",
+        "filename": "audioclip-1728488094000-1138.mp4",
+        "fileSize": 12568,
+        "duration": 1138,
+        "original_extension": "",
+        "mimeType": "audio/mpeg",
+        "audioType": "VOICE_MESSAGE",
+        "url": "https://cdn.fbsbx.com/v/t59.3654-21/462458363_526569540090543_5086479555572870616_n.mp4/audioclip-1728488094000-1138.mp4?_nc_cat=111&ccb=1-7&_nc_sid=d61c36&_nc_ohc=T7DjNFyQF4UQ7kNvgGQjbYj&_nc_ht=cdn.fbsbx.com&_nc_gid=ALq27F9KkPFsl9rZrJLwYuo&oh=03_Q7cD1QF6ZSwcEncZ3r7UyB_sdbcOlvJhrzlNSL5TTglhUMIqJw&oe=6708798B&dl=1",
+        "isVoiceMail": false
+      }
+    ]
   }
 }
