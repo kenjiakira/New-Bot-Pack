@@ -129,6 +129,12 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-#Appstate
+# Appstate
 
-appstate.json
+ appstate.json
+
+# cmds/cache
+
+# README
+
+ readMe.md

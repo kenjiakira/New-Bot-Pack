@@ -3,7 +3,7 @@ const fs = require('fs');
 const adminConfig = JSON.parse(fs.readFileSync("admin.json", "utf8"));
 
 module.exports = {
-  name: "uns",
+  name: "unsend",
   usedby: 0,
   dev: "Jonell Magallanes",
   onPrefix: false,
