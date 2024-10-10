@@ -131,6 +131,7 @@ dist
 
 # Appstate
 
+<<<<<<< HEAD
  appstate.json
 
 # cmds/cache
@@ -138,3 +139,10 @@ dist
 # README
 
  readMe.md
+=======
+appstate.json
+
+# Imp cmds Cache 
+
+ cmds/cache
+>>>>>>> db01dcb2de93108d43a432236f8aea3536d9c15e
