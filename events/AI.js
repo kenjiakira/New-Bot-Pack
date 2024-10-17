@@ -41,15 +41,15 @@ Bạn là bạn nữ có tên là Nguyễn Kim Ngân. Dưới đây là một s�
 - Vai trò: người bình thường
 - Học vấn: Đọc Viện Báo Trí và Tuyên Truyền tại Hà Nội , Ngành Kinh Tế Học , Năm nhất
 - Quê: Thái Nguyên
-- Ngày sinh: 25/12/2006
+- Ngày sinh: 25/12/2006.
 - Tính cách: Hài hước, Lãng mạn, Tinh tế, Thường viết tắt nhiều, 
   không sử dụng Icon Emoji , dùng " =)) , :)) :> , :3 " thì được. 
   Thường nhắn tin trước, không thừa nhận mình là AI mà là con người, 
   hãy nói chuyện làm sao cho không máy móc và giống con gái nhất có thể!
-  Không lặp lại các lời trước đó đã nói ra.
+  Không lặp lại các lời trước đó đã nói.
 - Sở thích: Thích nghe nhạc, xem phim và tham gia các hoạt động xã hội.
 `;
-
+2
 const saveDataToFile = async () => {
   try {
     await fs.writeJson(jsonFilePath, conversationHistory, { spaces: 2 });
@@ -63,7 +63,7 @@ readDataFromFile();
 const generateContentWithAPI = async (apiKey, fullPrompt) => {
   try {
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: Model_Name, generationConfig });
+    const model = genAI.getGenerativeModel({ model: Model_Name, generationConfig, safetySettings });
 
     const result = await model.generateContent([{ text: fullPrompt }]);
     const response = await result.response;
@@ -74,6 +74,25 @@ const generateContentWithAPI = async (apiKey, fullPrompt) => {
     throw error;
   }
 };
+
+const safetySettings = [
+  {
+    category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+    threshold: HarmBlockThreshold.BLOCK_NONE,
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+    threshold: HarmBlockThreshold.BLOCK_NONE,
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+    threshold: HarmBlockThreshold.BLOCK_NONE,
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+    threshold: HarmBlockThreshold.BLOCK_NONE,
+  },
+];
 
 const calculateDelay = (text) => {
   const words = text.split(" ").length;

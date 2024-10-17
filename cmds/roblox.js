@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { dmUser } = require('./uid');
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -13,6 +14,7 @@ module.exports = {
   dev: 'HNT',
   info: 'Lấy thông tin người dùng Roblox ',
   usages: 'roblox [Tên người dùng]',
+  dmUser: false,
   onPrefix: true,
   cooldowns: 10,
  

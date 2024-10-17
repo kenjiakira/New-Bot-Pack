@@ -1,7 +1,6 @@
 const axios = require("axios");
 const fs = require("fs-extra");
 const translate = require('translate-google');
-const { onPrefix } = require("./gemini");
 
 module.exports = {
   name: "movie", 

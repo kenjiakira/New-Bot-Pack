@@ -4,7 +4,7 @@ module.exports = {
   name: "uid",
   dev: "Akira",
   info: "lấy UID facebook của người nào đó",
-  onPrefix: true,
+  onPrefix: false,
   dmUser: false,
   usages: "gõ .UID [tag] or [reply]",
   cooldowns: 0,
