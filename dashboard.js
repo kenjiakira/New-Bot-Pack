@@ -10,7 +10,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 const adminConfig = JSON.parse(fs.readFileSync("admin.json", "utf8"));
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 9999;
 const chalk = require("chalk");
 const boldText = (text) => chalk.bold(text);
 const gradient = require("gradient-string");
@@ -33,7 +33,7 @@ app.use(session({
 function getBotInfo() {
     return {
         botName: adminConfig.botName || "MyBot", // Tên bot
-        prefix: adminConfig.prefix || "!", // Tiền tố lệnh
+        prefix: adminConfig.prefix || ".", // Tiền tố lệnh
         ownerName: adminConfig.ownerName || "Jonell Magallanes", // Tên chủ sở hữu
         commandsCount: fs.readdirSync('./cmds').length, // Số lượng lệnh
         eventsCount: fs.readdirSync('./events').length, // Số sự kiện

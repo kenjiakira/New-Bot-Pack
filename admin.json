@@ -1,24 +1,25 @@
 {
   "prefix": ".",
   "adminUIDs": [
-    "61561753304881"
+   "61561753304881"
   ],
   "moderatorUIDs": [
     "61561753304881",
     "",
     ""
   ],
-  "botName": "Akira",
-  "ownerName": "Akira",
-  "facebookLink": "https://www.facebook.com/KenjiDevv",
+  "botName": "AKI BOT",
+  "ownerName": "AKIRA",
+  "facebookLink": "fb link",
   "resend": false,
   "notilogs": true,
   "appstate": "./appstate.json",
   "restart": true,
   "restartTime": 50,
+  "FCA": "hut-chat-api",
   "loginpanel": {
-    "user": "your username on dashboard",
-    "password": "your password",
-    "passcode": "passcode but is not working for now"
+    "user": "kenjiakira",
+    "password": "1234",
+    "passcode": "12345"
   }
 }

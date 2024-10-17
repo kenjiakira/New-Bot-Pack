@@ -1,0 +1,18 @@
+module.exports = {
+    name: "detectHello",
+    dev: "hnt",
+    info: "Phát hiện tin nhắn 'hi' và phản hồi với 'xin chào'",
+    onPrefix: false,  
+    cooldowns: 5, 
+     
+    onEvents: async function({ api, event }) {
+        const { body, senderID, threadID, messageID } = event;
+        const botID = api.getCurrentUserID();
+
+        if (body && (body.toLowerCase() === 'hi' || body.toLowerCase() === 'hello') && senderID !== botID) {
+
+            await api.sendMessage("Xin chào!", threadID, messageID);
+
+        }
+    }
+};

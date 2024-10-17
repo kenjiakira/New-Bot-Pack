@@ -18,7 +18,7 @@ module.exports = {
 
             if (!keySearch.includes("-")) {
                 return api.sendMessage(
-                    "⛔ 𝗜𝗻𝘃𝗮𝗹𝗶𝗱 𝗨𝘀𝗲\n━━━━━━━━━━━━━━━\n\nVui lòng nhập truy vấn tìm kiếm và số lượng hình ảnh (1-99). Ví dụ: tomozaki -5",
+                    "⛔ Vui lòng nhập truy vấn tìm kiếm và số lượng hình ảnh (1-99). Ví dụ: tomozaki -5",
                     event.threadID,
                     event.messageID
                 );
@@ -30,7 +30,7 @@ module.exports = {
 
             if (isNaN(numberSearch) || numberSearch < 1 || numberSearch > 10) {
                 return api.sendMessage(
-                    "⛔ 𝗜𝗻𝘃𝗮𝗹𝗶𝗱 𝗡𝘂𝗺𝗯𝗲𝗿\n━━━━━━━━━━━━━━━\n\nVui lòng nhập một số lượng hình ảnh hợp lệ (1-99). Ví dụ: wallpaper -5",
+                    "⛔ Vui lòng nhập một số lượng hình ảnh hợp lệ (1-99). Ví dụ: wallpaper -5",
                     event.threadID,
                     event.messageID
                 );
@@ -61,7 +61,7 @@ module.exports = {
             }
 
             await api.sendMessage({
-                body: `📸 𝗣𝗶𝗻𝘁𝗲𝗿𝗲𝘀𝘁\n━━━━━━━━━━━━━━━\n\nĐây là ${numberSearch} kết quả hàng đầu cho truy vấn của bạn "${keySearchs}"`,
+                body: `📸 Đây là ${numberSearch} kết quả hàng đầu cho truy vấn của bạn "${keySearchs}"`,
                 attachment: imgData,
             }, event.threadID, event.messageID);
             

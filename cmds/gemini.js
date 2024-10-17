@@ -2,11 +2,27 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const fs = require("fs-extra");
 const path = require("path");
 const axios = require('axios');
-
+  
 const API_KEYS = [
   "AIzaSyAnl4nLQU0ddWPItj1e-jJRllbeJuB5r2c",  
-  "AIzaSyDSFQTodWCEVU6GI8LBxczmviEPdWlnoao"
+  "AIzaSyDSFQTodWCEVU6GI8LBxczmviEPdWlnoao",
+  "AIzaSyDSFQTodWCEVU6GI8LBxczmviEPdWlnoao",
+  "AIzaSyADq-GGIfFfiTZiGvPqcYDALz_2b7sY1ig",
+  "AIzaSyBt8ewxLNIwVU0ftIWl_5mvhgR-DeUKk9o",
+  "AIzaSyCcY25gHP-F0G9H_Gtmeot7F7hVoLKkmAY"
 ];
+
+const Model_Name = "gemini-1.5-flash";
+
+const generationConfig = {
+  temperature: 1,
+  topK: 0,
+  topP: 0.95,
+  maxOutputTokens: 8192,
+};
+
+const systemInstruction = `
+bạn là: Nguyễn Kim Ngân không phải là chatbot`;
 
 const conversationHistory = {};
 const jsonFilePath = path.resolve(__dirname, 'json', 'gemini.json');
@@ -38,7 +54,7 @@ const COOLDOWN_TIME = 10000;
 const generateContentWithAPI = async (apiKey, fullPrompt, imageParts) => {
   try {
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+    const model = genAI.getGenerativeModel({ model: Model_Name, generationConfig, systemInstruction  });
 
     const result = await model.generateContent([{ text: fullPrompt }, ...imageParts]);
     const response = await result.response;

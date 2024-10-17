@@ -3,15 +3,7 @@ const cheerio = require('cheerio');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const API_KEYS = [
-    "AIzaSyDMp6YNWYUw_wQBdv4DjkAOvZXJv7ITRy0",
-    "AIzaSyDysChx19Lu3hAFpE2knZwkoCWGTN2gfy0",
-    "AIzaSyCTvL29weT4BIn7WtFtTvsaQ5Jt6Dm4mBE",
-    "AIzaSyDoCGS2-hagw5zWVMfL5iqAVRFNivtbam4",
-    "AIzaSyASuW0stXR61_xJ3s0XP3Qw0RoudGCjQRQ",
-    "AIzaSyC78Dqs1rdEfj4JcmlSFEBhJZLOJzWmt_Y",
-    "AIzaSyDpqfVtdyGLfipEdRNFfUQbCH-prn1sHEs",
-    "AIzaSyArI6Ww02Ill7b6Bx5itiKlHD62siAFLIc",
-    "AIzaSyBgYVR81UeL7kYouxcwzUL75YOBafgNphU"
+"AIzaSyDSFQTodWCEVU6GI8LBxczmviEPdWlnoao"
 ];
 
 module.exports = {

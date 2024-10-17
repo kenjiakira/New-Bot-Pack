@@ -1,8 +1,10 @@
+// Error Code
+
 const fs = require('fs');
 const moment = require('moment-timezone');
 
 module.exports = {
-    name: "greet", 
+    name: "greet",
     info: "Lệnh chào mừng và tạm biệt.",
     dev: "HNT",
     onPrefix: false,
@@ -14,8 +16,8 @@ module.exports = {
     botUIDs: ["100056955484415", "100040203282108", "100092325757607"],
 
     onEvents: async function ({ event, api, Users, actions }) {
-        const greetKeywords = ["hello", "hi", "hai", "chào", "chao", "hí", "híí", "hì", "hìì", "lô", "hii", "helo", "hê nhô"];
-        const byeKeywords = ["bye", "bai", "off", "byee", "pai", "paii"];
+        const greetKeywords = ["hello", "hi", "chào", "lô", "hii", "helo"];
+        const byeKeywords = ["bye", "bai", "off", "byee", "pai"];
 
         if (event.body && !this.botUIDs.includes(event.senderID)) {
             const stickerData = [
@@ -36,7 +38,7 @@ module.exports = {
             const sticker = stickerData[Math.floor(Math.random() * stickerData.length)];
             const currentTime = moment.tz('Asia/Ho_Chi_Minh');
             const hours = currentTime.hours();
-            const textOptions = ["ngày tuyệt vời", "buổi tối vui vẻ", "một ngày thật đáng yêu", "một ngày tuyệt diệu", "buổi chiều năng động", "buổi sáng tràn đầy năng lượng"];
+            const textOptions = ["ngày tuyệt vời", "buổi tối vui vẻ", "một ngày thật đáng yêu"];
             const text = textOptions[Math.floor(Math.random() * textOptions.length)];
             const session = (
                 hours >= 5 && hours < 10 ? "buổi sáng" :
@@ -46,49 +48,39 @@ module.exports = {
                 "buổi đêm"
             );
 
-            const name = await Users.getNameUser(event.senderID);
-            const mentions = [{ tag: name, id: event.senderID }];
+            try {
+                const name = await Users.getNameUser(event.senderID);
+                const mentions = [{ tag: name, id: event.senderID }];
 
-            const greetBodies = [
-                `🌟 Chào ${name} 🌟\n✨ Chúc bạn một ${session} ${text} ✨\n💖 Chúc bạn một ngày tuyệt vời!\n⏰ Thời gian hiện tại: ${currentTime.format("HH:mm:ss || DD/MM/YYYY")}`,
-                `🌈 Hi ${name} 🌈\n🎉 Chúc bạn một ${session} tràn đầy năng lượng ${text}! 🎉\n💫 Hy vọng bạn có một ngày thật tuyệt!\n⏰ Thời gian hiện tại: ${currentTime.format("HH:mm:ss || DD/MM/YYYY")}`,
-                `🎈 Xin chào ${name} 🎈\n🌟 Chúc bạn một ${session} đáng yêu ${text} 🌟\n🌷 Chúc bạn có một ngày thật tốt lành!\n⏰ Thời gian hiện tại: ${currentTime.format("HH:mm:ss || DD/MM/YYYY")}`
-            ];
+                const isGreet = greetKeywords.some(keyword => event.body.toLowerCase().includes(keyword));
+                const isBye = byeKeywords.some(keyword => event.body.toLowerCase().includes(keyword));
 
-            const byeBodies = [
-                `👋 Tạm biệt ${name} 👋\n💔 Chúc bạn có một ${session} thật vui vẻ 💔\n🌹 Hãy quay lại để trò chuyện với bot nhé!\n⏰ Thời gian hiện tại: ${currentTime.format("HH:mm:ss || DD/MM/YYYY")}`,
-                `🚀 Tạm biệt ${name} 🚀\n💫 Hy vọng bạn có một ${session} tuyệt vời 💫\n🌈 Hãy trở lại và trò chuyện với bot khi bạn muốn nhé!\n⏰ Thời gian hiện tại: ${currentTime.format("HH:mm:ss || DD/MM/YYYY")}`
-            ];
-
-            if (greetKeywords.includes(event.body.toLowerCase())) {
-                const msg = {
-                    body: greetBodies[Math.floor(Math.random() * greetBodies.length)],
-                    mentions
-                };
-                await actions.send(msg, event.threadID);
-                setTimeout(() => {
-                    api.sendMessage({ sticker }, event.threadID);
-                }, 100);
-            } else if (byeKeywords.includes(event.body.toLowerCase())) {
-                const msg = {
-                    body: byeBodies[Math.floor(Math.random() * byeBodies.length)],
-                    mentions
-                };
-                await actions.send(msg, event.threadID);
-                setTimeout(() => {
-                    api.sendMessage({ sticker }, event.threadID);
-                }, 100);
+                if (isGreet) {
+                    const msg = {
+                        body: `🌟 Chào ${name} 🌟\nChúc bạn ${session} ${text}!`,
+                        mentions
+                    };
+                    await actions.send(msg, event.threadID);
+                    setTimeout(() => {
+                        api.sendMessage({ sticker }, event.threadID);
+                    }, 100);
+                } else if (isBye) {
+                    const msg = {
+                        body: `👋 Tạm biệt ${name} 👋\nChúc bạn ${session} vui vẻ!`,
+                        mentions
+                    };
+                    await actions.send(msg, event.threadID);
+                    setTimeout(() => {
+                        api.sendMessage({ sticker }, event.threadID);
+                    }, 100);
+                }
+            } catch (error) {
+                console.error("Lỗi khi lấy tên người dùng:", error);
             }
         }
     },
 
     run: async function ({ event, api, actions }) {
         return await actions.reply("Lệnh đã được cấu hình để luôn luôn hoạt động và không cần bật/tắt.");
-    },
-
-    languages: {
-        "vi": {
-            "noActionRequired": "Lệnh đã được cấu hình để luôn luôn hoạt động và không cần bật/tắt.",
-        }
     }
 };
